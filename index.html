@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Летающие картинки с музыкой</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+    }
+
+    .floating-image {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      cursor: pointer;
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(-100px); }
+      to { transform: translateY(100vh); }
+    }
+  </style>
+</head>
+<body>
+
+<audio id="sound" src="music.mp3"></audio>
+
+<script>
+  const imageUrl = "https://media.tenor.com/hlI8bateU7kAAAAM/creeper-blast.gif";
+  const numImages = 20;
+
+  for (let i = 0; i < numImages; i++) {
+    const img = document.createElement("img");
+    img.src = imageUrl;
+    img.classList.add("floating-image");
+
+    // Случайное место по X и скорость анимации
+    img.style.left = Math.random() * window.innerWidth + "px";
+    img.style.animationDuration = (5 + Math.random() * 10) + "s";
+
+    // При клике — воспроизвести звук
+    img.addEventListener("click", () => {
+      const audio = document.getElementById("sound");
+      audio.currentTime = 0;
+      audio.play();
+    });
+
+    document.body.appendChild(img);
+  }
+</script>
+
+</body>
+</html>
